@@ -153,7 +153,7 @@ echo ""
 clear
 #maximiza la terminal.
 wmctrl -r :ACTIVE: -b add,maximized_vert,maximized_horz
-echo -e "${rosa}"; figlet -c sukigsx; echo -e "${borra_colores}"
+echo -e "${rosa}"; figlet -c sukigsxxx; echo -e "${borra_colores}"
 echo ""
 echo -e "${verde} Diseñado por sukigsx / Contacto:   scripts@mbbsistemas.es${borra_colores}"
 echo -e "${verde}                                    https://repositorio.mbbsistemas.es${borra_colores}"
