@@ -62,7 +62,7 @@ fi
 software_necesario(){
 var_software="no"
 echo -e " Verificando software necesario:"
-software="which git diff ping figlet wmctrl apt fzf xdotool" #ponemos el foftware a instalar separado por espacion dentro de las comillas ( soft1 soft2 soft3 etc )
+software="which git diff ping figlet wmctrl apt fzf xdotool curl jq" #ponemos el foftware a instalar separado por espacion dentro de las comillas ( soft1 soft2 soft3 etc )
 for paquete in $software
 do
 which $paquete 2>/dev/null 1>/dev/null 0>/dev/null #comprueba si esta el programa llamado programa
@@ -271,8 +271,9 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
             clear
             echo -e "${rosa}"; figlet -c Scripts-sukigsx; echo -e "${borra_colores}"
             echo ""
-            repos=$(curl -s "https://api.github.com/users/sukigsx/repos" | jq -r '.[].name')
-
+            repos=$(curl -s "https://api.github.com/users/sukigsx/repos" | jq -r '.[].name' | grep -vE 'sukigsx.github.io|ejecutar_scripts')
+            echo -e "${azul} Lista de repositorios de sukigsx.${borra_colores}"
+            echo ""
             select repo in $repos "Salir"; do
             case $repo in
                 "Salir")
