@@ -282,16 +282,16 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
                 ;;
             *)
                 echo ""
-                echo -e "${verde}Seleccionaste el repositorio:${borra_colores} $repo"
+                echo -e "${verde}Seleccionaste el repositorio:${borra_colores} $repo"; sleep 1
 
                 # Clonar el repositorio seleccionado
-                git clone "https://github.com/sukigsx/$repo.git" "/home/$(whoami)/scripts/$repo"
+                git clone "https://github.com/sukigsx/$repo.git" "/home/$(whoami)/scripts/$repo" /dev/null 2>&1
 
                 # Copiar archivos .sh al directorio /home/sukigsx/scripts/
                 find "/home/$(whoami)/scripts/$repo" -type f -name "*.sh" -exec cp {} "/home/$(whoami)/scripts/" \;
 
                 # Eliminar el repositorio clonado después de copiar los archivos
-                rm -rf "/home/$(whoami)/scripts/$repo"
+                rm -rf "/home/$(whoami)/scripts/$repo" /dev/null 2>&1
 
                 echo -e "${verde}Archivos repositorio${borra_colores} $repo ${verde}han sido copiados a ${borra_colores}/home/$(whoami)/scripts/ "
                 sleep 2; break
