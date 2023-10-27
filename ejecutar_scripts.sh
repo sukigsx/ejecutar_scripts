@@ -291,7 +291,7 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
                 find "/home/$(whoami)/scripts/$repo" -type f -name "*.sh" -exec cp {} "/home/$(whoami)/scripts/" \;
 
                 # Eliminar el repositorio clonado después de copiar los archivos
-                rm -rf "/home/$(whoami)/scripts/$repo" > /dev/null 2>&1; read p
+                rm -rf "/home/$(whoami)/scripts/$repo" > /dev/null 2>&1
 
                 echo -e "${verde}Archivos repositorio${borra_colores} $repo ${verde}han sido copiados a ${borra_colores}/home/$(whoami)/scripts/ "
                 sleep 2; break
