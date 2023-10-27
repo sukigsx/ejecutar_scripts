@@ -172,7 +172,7 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
     echo ""
     echo -e "  ${azul}3.${borra_colores} Guardar tus script."
     echo ""
-    echo -e "  ${azul}4.${borra_colores} Opcion vacia, para posibles actualizaciones"
+    echo -e "  ${azul}4.${borra_colores} Instalar scripts de sukigsx"
     echo ""
     echo -e "  ${azul}5.${borra_colores} Opcion vacia, para posibles actualizaciones"
     echo ""
@@ -267,7 +267,32 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
             fi
             ;;
 
-        4)  #opcion vacia para posibles actualizaciones
+        4)  #Instalar scripts de sukigsx
+            repos=$(curl -s "https://api.github.com/users/sukigsx/repos" | jq -r '.[].name')
+
+            select repo in $repos "Salir"; do
+            case $repo in
+                "Salir")
+                echo "Saliendo..."
+                break
+                ;;
+            *)
+                echo "Seleccionaste el repositorio: $repo"
+
+                # Clonar el repositorio seleccionado
+                git clone "https://github.com/sukigsx/$repo.git" "/home/sukigsx/scripts/$repo"
+
+                # Copiar archivos .sh al directorio /home/sukigsx/scripts/
+                find "/home/sukigsx/scripts/$repo" -type f -name "*.sh" -exec cp {} "/home/sukigsx/scripts/" \;
+
+                # Eliminar el repositorio clonado después de copiar los archivos
+                rm -rf "/home/sukigsx/scripts/$repo"
+
+                echo "Archivos .sh del repositorio $repo han sido copiados a /home/sukigsx/scripts/"
+                sleep 2; break
+                ;;
+            esac
+            done
             ;;
 
         5)  #opcion vacia para posibles actualizaciones
