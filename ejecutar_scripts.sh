@@ -40,7 +40,7 @@ clear
 figlet -c Gracias por
 figlet -c utilizar mi
 figlet -c script
-wmctrl -r :ACTIVE: -b remove,maximized_vert,maximized_horz
+#wmctrl -r :ACTIVE: -b remove,maximized_vert,maximized_horz
 exit
 }
 
@@ -62,7 +62,7 @@ fi
 software_necesario(){
 var_software="no"
 echo -e " Verificando software necesario:"
-software="which git diff ping figlet wmctrl apt fzf xdotool curl jq" #ponemos el foftware a instalar separado por espacion dentro de las comillas ( soft1 soft2 soft3 etc )
+software="which git diff ping figlet apt fzf curl jq" #ponemos el foftware a instalar separado por espacion dentro de las comillas ( soft1 soft2 soft3 etc )
 for paquete in $software
 do
 which $paquete 2>/dev/null 1>/dev/null 0>/dev/null #comprueba si esta el programa llamado programa
@@ -127,7 +127,7 @@ else
     echo -e "${verde} El script se ha actualizado, es necesario cargarlo de nuevo.${borra_colores}"
     echo -e "${amarillo} Se cerrara el terminal en 5 segundos.${borra_colores}"
     sleep 5
-    xdotool windowkill `xdotool getactivewindow`
+    #xdotool windowkill `xdotool getactivewindow`
 fi
 }
 
@@ -152,7 +152,7 @@ while true; do
 echo ""
 clear
 #maximiza la terminal.
-wmctrl -r :ACTIVE: -b add,maximized_vert,maximized_horz
+#wmctrl -r :ACTIVE: -b add,maximized_vert,maximized_horz
 echo -e "${rosa}"; figlet -c sukigsx; echo -e "${borra_colores}"
 echo ""
 echo -e "${verde} Diseñado por sukigsx / Contacto:   scripts@mbbsistemas.es${borra_colores}"
@@ -314,7 +314,7 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
             echo -e "${verde} Desistalacion completa.${borra_colores}"
             echo ""
             read -p " Se cerrara tu terminal para que surjan efecto los cambios. Pulsa una tecla para continuar." pause
-            xdotool windowkill `xdotool getactivewindow`
+            #xdotool windowkill `xdotool getactivewindow`
             ;;
 
         90) #ayuda
@@ -348,7 +348,7 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
             echo "El script define varias variables que contienen códigos de colores ANSI para facilitar la salida de texto con colores en la terminal."
             echo ""
             echo -e "${azul}## Comprueba los programas necesarios:${borra_colores}"
-            echo "Comprueba (git, diff, ping, figlet, wmctrl, apt, fzf, y xdotool) que están instalados en el sistema."
+            echo "Comprueba (git, diff, ping, figlet, apt y fzf) que están instalados en el sistema."
             echo "Si falta alguno de estos programas, intenta instalarlo automáticamente utilizando apt."
             echo "Si no puede instalar el software después de tres intentos o si no hay conexión a Internet, muestra un mensaje de error y termina el script."
             echo ""

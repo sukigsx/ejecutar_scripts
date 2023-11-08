@@ -19,7 +19,7 @@ clear
 figlet -c Gracias por
 figlet -c utilizar mi
 figlet -c script
-wmctrl -r :ACTIVE: -b remove,maximized_vert,maximized_horz
+#wmctrl -r :ACTIVE: -b remove,maximized_vert,maximized_horz
 exit
 }
 
@@ -42,7 +42,7 @@ fi
 software_necesario(){
 var_software="no"
 echo -e " Verificando software necesario:"
-software="which git diff ping figlet wmctrl apt fzf xdotool" #ponemos el foftware a instalar separado por espacion dentro de las comillas ( soft1 soft2 soft3 etc )
+software="which git diff ping figlet apt fzf" #ponemos el foftware a instalar separado por espacion dentro de las comillas ( soft1 soft2 soft3 etc )
 for paquete in $software
 do
 which $paquete 2>/dev/null 1>/dev/null 0>/dev/null #comprueba si esta el programa llamado programa
@@ -81,7 +81,7 @@ sleep 2
 
 clear
 #maximiza la terminal.
-wmctrl -r :ACTIVE: -b add,maximized_vert,maximized_horz
+#wmctrl -r :ACTIVE: -b add,maximized_vert,maximized_horz
 echo -e "${rosa}"; figlet -c sukigsx; echo -e "${borra_colores}"
 echo ""
 echo -e "${verde} Diseñado por sukigsx / Contacto:   scripts@mbbsistemas.es${borra_colores}"
@@ -119,7 +119,7 @@ then
             echo -e "${verde} Desistalacion completa.${borra_colores}"
             echo ""
             read -p " Se cerrara tu terminal para que surjan efecto los cambios. Pulsa una tecla para continuar." pause
-            xdotool windowkill `xdotool getactivewindow`
+            #xdotool windowkill `xdotool getactivewindow`
             ;;
 
         99)  #Saliendo del programa.
@@ -144,5 +144,5 @@ else
     echo -e " Instalacion completada [${verde}ok${borra_colores}] ."
     echo ""
     read -p " Se cerrara tu terminal para que surjan efecto los cambios. Pulsa una tecla para continuar." pause
-    xdotool windowkill `xdotool getactivewindow`
+    #xdotool windowkill `xdotool getactivewindow`
 fi
