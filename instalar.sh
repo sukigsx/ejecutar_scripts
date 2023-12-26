@@ -134,6 +134,15 @@ then
     esac
 done
 else
+    #comprueba si existe la carpeta /home/usuario/.config y si no esta la crea
+    if [ -d /home/$(whoami)/.config ]
+    then
+        echo ""
+    else
+        # Crear la carpeta .config si no existe
+        mkdir /home/$(whoami)/.config
+    fi
+
     echo -e "${verde} Instalando:${borra_colores}"
     echo ""
     echo -e " Creando carpeta (scripts) en /home/$(whoami)/ [${verde}ok${borra_colores}]."; mkdir /home/$(whoami)/scripts; sleep 1
