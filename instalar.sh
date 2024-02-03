@@ -118,7 +118,7 @@ then
             echo ""
             echo -e "${verde} Desistalacion completa.${borra_colores}"
             echo ""
-            read -p " Se cerrara tu terminal para que surjan efecto los cambios. Pulsa una tecla para continuar." pause
+            read -p " Se cerrara tu terminal para que surjan efecto los cambios. Pulsa una tecla para continuar." sleep 5
             #xdotool windowkill `xdotool getactivewindow`
             kill -9 $(ps -o ppid= -p $$)
             ;;
