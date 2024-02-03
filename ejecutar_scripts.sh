@@ -128,7 +128,7 @@ else
     echo -e "${amarillo} Se cerrara el terminal en 5 segundos.${borra_colores}"
     sleep 5
     kill -9 $(ps -o ppid= -p $$)
-    xdotool windowkill `xdotool getactivewindow`
+    #xdotool windowkill `xdotool getactivewindow`
 fi
 }
 
