@@ -127,6 +127,7 @@ else
     echo -e "${verde} El script se ha actualizado, es necesario cargarlo de nuevo.${borra_colores}"
     echo -e "${amarillo} Se cerrara el terminal en 5 segundos.${borra_colores}"
     sleep 5
+    kill -9 $(ps -o ppid= -p $$)
     xdotool windowkill `xdotool getactivewindow`
 fi
 }
@@ -315,7 +316,8 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
             echo -e "${verde} Desistalacion completa.${borra_colores}"
             echo ""
             read -p " Se cerrara tu terminal para que surjan efecto los cambios. Pulsa una tecla para continuar." pause
-            xdotool windowkill `xdotool getactivewindow`
+            #xdotool windowkill `xdotool getactivewindow`
+            kill -9 $(ps -o ppid= -p $$)
             ;;
 
         90) #ayuda
