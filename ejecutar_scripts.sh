@@ -272,7 +272,9 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
             clear
             echo -e "${rosa}"; figlet -c Scripts-sukigsx; echo -e "${borra_colores}"
             echo ""
-            repos=$(curl -s "https://api.github.com/users/sukigsx/repos" | jq -r '.[].name' | grep -vE 'sukigsx.github.io|ejecutar_scripts')
+            #repos=$(curl -s "https://api.github.com/users/sukigsx/repos" | jq -r '.[].name' | grep -vE 'sukigsx.github.io|ejecutar_scripts')
+            repos=$(curl -s "https://api.github.com/users/sukigsx/repos" | jq -r '.[].name' | grep -vE 'sukigsx.github.io|ejecutar_scripts' | grep -v 'gui')
+
             echo -e "${azul} Lista de repositorios de sukigsx.${borra_colores}"
             echo ""
             select repo in $repos "Salir"; do
@@ -290,7 +292,7 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
 
                 # Copiar archivos .sh al directorio /home/sukigsx/scripts/
                 #find "/home/$(whoami)/scripts/$repo" -type f -name "*.sh" -exec cp {} "/home/$(whoami)/scripts/" \;
-                cp /home/$(whoami)/scripts/$repo/* /home/$(whoami)/scripts/
+                cp /home/$(whoami)/scripts/$repo/*.sh /home/$(whoami)/scripts/
 
                 # Eliminar el repositorio clonado después de copiar los archivos
                 rm -rf "/home/$(whoami)/scripts/$repo" > /dev/null 2>&1
