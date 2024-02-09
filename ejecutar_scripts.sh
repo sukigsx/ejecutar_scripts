@@ -124,9 +124,8 @@ else
     chmod -R +w /tmp/comprobar
     rm -R /tmp/comprobar
     echo ""
-    echo -e "${verde} El script se ha actualizado, es necesario cargarlo de nuevo.${borra_colores}"
-    echo -e "${amarillo} Reinicia el terminal.${borra_colores}"
-    echo ""
+    echo -e "${verde} El script se ha actualizado.${borra_colores}"
+    sleep 2
     exit
     #kill -9 $(ps -o ppid= -p $$)
     #xdotool windowkill `xdotool getactivewindow`
