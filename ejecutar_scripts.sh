@@ -124,7 +124,7 @@ else
     chmod -R +w /tmp/comprobar
     rm -R /tmp/comprobar
     echo ""
-    echo -e "${verde} El script se ha actualizadooooooooooo.${borra_colores}"
+    echo -e "${verde} El script se ha actualizado.${borra_colores}"
     sleep 2
     exit
     #kill -9 $(ps -o ppid= -p $$)
