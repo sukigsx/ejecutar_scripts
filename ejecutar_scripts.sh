@@ -319,7 +319,8 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
             echo ""
             read -p " Se cerrara tu terminal para que surjan efecto los cambios. Pulsa una tecla para continuar." pause
             #xdotool windowkill `xdotool getactivewindow`
-            kill -9 $(ps -o ppid= -p $$)
+            #kill -9 $(ps -o ppid= -p $$)
+            exit
             ;;
 
         90) #ayuda
