@@ -124,7 +124,7 @@ else
     chmod -R +w /tmp/comprobar
     rm -R /tmp/comprobar
     echo ""
-    echo -e "${verde} El script se ha actualizado, es necesario cargarlo de nuevo.${borra_colores}"
+    echo -e "${verde} El script se ha actualizado, es necesario cargarlo de nuevoooooooo.${borra_colores}"
     echo -e "${amarillo} Reinicia el terminal.${borra_colores}"
     echo ""
     exit
