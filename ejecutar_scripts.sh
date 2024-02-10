@@ -212,7 +212,9 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
             # Buscar archivos .sh en el directorio HOME, excluyendo carpetas ocultas
             #files=$(find /home/$(whoami) -type f -name "*.sh" | grep -v '/\.')
             #files=$(find "/home/$(whoami)/scripts/" -type f -name "*.*" ! -name "ejecutar_scripts.sh")
-            files=$(find "/home/$(whoami)/scripts/" -type f -name "*.*" ! -name "ejecutar_scripts.sh" | sort -t. -k2)
+            #files=$(find "/home/$(whoami)/scripts/" -type f -name "*.*" ! -name "ejecutar_scripts.sh" | sort -t. -k2)
+            files=$(find "/home/$(whoami)/scripts/" -type f -name "*.*" ! -name "ejecutar_scripts.sh" | sort -t. -k2 | xargs -I{} basename {})
+
 
             # Usar fzf para la selección múltiple
             selected_files=$( echo "$files" | fzf --multi --height 80% --reverse --prompt="Selecciona scripts: Info: (tab = Marcar multiple) (Enter = Seleccionar) (Esc = Salir)" --no-info)
