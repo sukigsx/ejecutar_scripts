@@ -124,9 +124,10 @@ else
     chmod -R +w /tmp/comprobar
     rm -R /tmp/comprobar
     echo ""
-    echo -e "${verde} El script se ha actualizado, es necesario cargarlo de nuevo.${borra_colores}"
-    echo -e "${amarillo} Se cerrara el terminal en 5 segundos.${borra_colores}"
-    sleep 5
+    echo -e "${verde} El script se ha actualizado.${borra_colores}"
+    sleep 2
+    exit
+    #kill -9 $(ps -o ppid= -p $$)
     #xdotool windowkill `xdotool getactivewindow`
 fi
 }
@@ -210,7 +211,11 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
             echo -e "${rosa}"; figlet Borrar - Scripts; echo -e "${borra_colores}"
             # Buscar archivos .sh en el directorio HOME, excluyendo carpetas ocultas
             #files=$(find /home/$(whoami) -type f -name "*.sh" | grep -v '/\.')
-            files=$(find "/home/$(whoami)/scripts/" -type f -name "*.sh" ! -name "ejecutar_scripts.sh")
+            #files=$(find "/home/$(whoami)/scripts/" -type f -name "*.*" ! -name "ejecutar_scripts.sh")
+            #files=$(find "/home/$(whoami)/scripts/" -type f -name "*.*" ! -name "ejecutar_scripts.sh" | sort -t. -k2)
+            files=$(find "/home/$(whoami)/scripts/" -type f -name "*.*" ! -name "ejecutar_scripts.sh" | sort -t. -k2 | xargs -I{} basename {})
+
+
             # Usar fzf para la selección múltiple
             selected_files=$( echo "$files" | fzf --multi --height 80% --reverse --prompt="Selecciona scripts: Info: (tab = Marcar multiple) (Enter = Seleccionar) (Esc = Salir)" --no-info)
             # Copiar los archivos seleccionados a /home/sukigsx/scripts
@@ -272,6 +277,8 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
             echo -e "${rosa}"; figlet Scripts-sukigsx; echo -e "${borra_colores}"
             echo ""
             repos=$(curl -s "https://api.github.com/users/sukigsx/repos" | jq -r '.[].name' | grep -vE 'sukigsx.github.io|ejecutar_scripts')
+            #repos=$(curl -s "https://api.github.com/users/sukigsx/repos" | jq -r '.[].name' | grep -vE 'sukigsx.github.io|ejecutar_scripts' | grep -v 'gui')
+
             echo -e "${azul} Lista de repositorios de sukigsx.${borra_colores}"
             echo ""
             select repo in $repos "Salir"; do
@@ -288,7 +295,8 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
                 git clone "https://github.com/sukigsx/$repo.git" "/home/$(whoami)/scripts/$repo" > /dev/null 2>&1
 
                 # Copiar archivos .sh al directorio /home/sukigsx/scripts/
-                find "/home/$(whoami)/scripts/$repo" -type f -name "*.sh" -exec cp {} "/home/$(whoami)/scripts/" \;
+                #find "/home/$(whoami)/scripts/$repo" -type f -name "*.sh" -exec cp {} "/home/$(whoami)/scripts/" \;
+                cp /home/$(whoami)/scripts/$repo/* /home/$(whoami)/scripts/
 
                 # Eliminar el repositorio clonado después de copiar los archivos
                 rm -rf "/home/$(whoami)/scripts/$repo" > /dev/null 2>&1
@@ -315,6 +323,8 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
             echo ""
             read -p " Se cerrara tu terminal para que surjan efecto los cambios. Pulsa una tecla para continuar." pause
             #xdotool windowkill `xdotool getactivewindow`
+            #kill -9 $(ps -o ppid= -p $$)
+            exit
             ;;
 
         90) #ayuda

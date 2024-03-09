@@ -1,5 +1,3 @@
-
-
 #colores
 #ejemplo: echo -e "${verde} La opcion (-e) es para que pille el color.${borra_colores}"
 
@@ -120,6 +118,8 @@ then
             echo ""
             read -p " Se cerrara tu terminal para que surjan efecto los cambios. Pulsa una tecla para continuar." pause
             #xdotool windowkill `xdotool getactivewindow`
+            #kill -9 $(ps -o ppid= -p $$)
+            exit
             ;;
 
         99)  #Saliendo del programa.
@@ -154,4 +154,6 @@ else
     echo ""
     read -p " Se cerrara tu terminal para que surjan efecto los cambios. Pulsa una tecla para continuar." pause
     #xdotool windowkill `xdotool getactivewindow`
+    #kill -9 $(ps -o ppid= -p $$)
+    exit
 fi
