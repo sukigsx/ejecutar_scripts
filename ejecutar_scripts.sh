@@ -201,7 +201,7 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
                     echo -e "${rosa}"; figlet -c Incluir - Scripts; echo -e "${borra_colores}"
                     # Buscar archivos .sh en el directorio HOME, excluyendo carpetas ocultas
                     #files=$(find /home/$(whoami) -type f -name "*.sh" | grep -v '/\.')
-                    files=$(find "/home/$(whoami)/" -type f -name "*.sh" -not -path '*/\.*' -not -path "/home/$(whoami)/scripts/*")
+                    files=$(find "/home/$(whoami)/" -type f -name "*.sh" -not -path '*/\.*' -not -path "/home/$(whoami)/scripts/*" -not -path "/home/$(whoami)/ejecutar_scripts/*")
                     # Usar fzf para la selección múltiple
                     selected_files=$( echo "$files" | fzf --multi --height 80% --reverse --prompt="Selecciona scripts: Info: (tab = Marcar multiple) (Enter = Seleccionar) (Esc = Salir))" --no-info)
                     # Copiar los archivos seleccionados a /home/sukigsx/scripts
