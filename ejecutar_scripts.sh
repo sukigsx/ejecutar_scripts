@@ -187,24 +187,51 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
 
     case $opcion in
 
-        1)  #incluir uno o varios scripts
-            clear
-            echo -e "${rosa}"; figlet -c Incluir - Scripts; echo -e "${borra_colores}"
-            # Buscar archivos .sh en el directorio HOME, excluyendo carpetas ocultas
-            #files=$(find /home/$(whoami) -type f -name "*.sh" | grep -v '/\.')
-            files=$(find "/home/$(whoami)/" -type f -name "*.sh" -not -path '*/\.*' -not -path "/home/$(whoami)/scripts/*")
-            # Usar fzf para la selección múltiple
-            selected_files=$( echo "$files" | fzf --multi --height 80% --reverse --prompt="Selecciona scripts: Info: (tab = Marcar multiple) (Enter = Seleccionar) (Esc = Salir))" --no-info)
-            # Copiar los archivos seleccionados a /home/sukigsx/scripts
-            if [ -n "$selected_files" ]; then
-                echo "$selected_files" | xargs -I {} cp {} /home/$(whoami)/scripts/
-                echo ""
-                echo -e "${verde} Archivos copiados correctamente.${borra_colores}"; sleep 2
-            else
-                echo ""
-                echo -e "${amarillo} Ningun archivo seleccionado.${borra_colores}"; sleep 2
-            fi
-            ;;
+        1)  # Define las opciones del menú
+            options=("Script sencillo" "Aplicación con varios scripts y carpetas")
+
+            # Utiliza fzf para mostrar el menú y obtener la selección del usuario
+            selected_option=$(printf '%s\n' "${options[@]}" | fzf --prompt="Selecciona una opción>" --header="hola" --reverse)
+
+            # Verifica la opción seleccionada y ejecuta el comando correspondiente
+            case $selected_option in
+                "Script sencillo")
+                    #incluir uno o varios scripts
+                    clear
+                    echo -e "${rosa}"; figlet -c Incluir - Scripts; echo -e "${borra_colores}"
+                    # Buscar archivos .sh en el directorio HOME, excluyendo carpetas ocultas
+                    #files=$(find /home/$(whoami) -type f -name "*.sh" | grep -v '/\.')
+                    files=$(find "/home/$(whoami)/" -type f -name "*.sh" -not -path '*/\.*' -not -path "/home/$(whoami)/scripts/*")
+                    # Usar fzf para la selección múltiple
+                    selected_files=$( echo "$files" | fzf --multi --height 80% --reverse --prompt="Selecciona scripts: Info: (tab = Marcar multiple) (Enter = Seleccionar) (Esc = Salir))" --no-info)
+                    # Copiar los archivos seleccionados a /home/sukigsx/scripts
+                    if [ -n "$selected_files" ]; then
+                        echo "$selected_files" | xargs -I {} cp {} /home/$(whoami)/scripts/
+                        echo ""
+                        echo -e "${verde} Archivos copiados correctamente.${borra_colores}"; sleep 2
+                    else
+                        echo ""
+                        echo -e "${amarillo} Ningun archivo seleccionado.${borra_colores}"; sleep 2
+                    fi
+                    ;;
+
+                "Aplicación con varios scripts y carpetas")
+                    # Utiliza fzf para seleccionar una carpeta o directorio
+                    selected_dir=$(find / -type d 2>/dev/null | fzf)
+
+                    # Verifica si se ha seleccionado una carpeta
+                    if [ -n "$selected_dir" ]; then
+                        # Copia el contenido de la carpeta seleccionada a /home/usuario/scripts
+                        cp -r "$selected_dir"/* /home/$(whoami)/scripts/
+                        echo "Contenido de la carpeta copiado exitosamente a /home/$(whoami)/scripts/"
+                    else
+                        echo "No se seleccionó ninguna carpeta."
+                    fi
+                    ;;
+            *)
+                    echo "Opción no válida"
+                    ;;
+            esac
 
         2)  #quitar uno o varios scripts
             clear
