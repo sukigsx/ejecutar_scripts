@@ -188,7 +188,7 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
     case $opcion in
 
         1)  # Define las opciones del menú
-            options=("Incluir uno o varios scripts sencillos" "Incluir aplicación con varios scripts y carpetas")
+            options=("" "Incluir uno o varios scripts sencillos" "Incluir aplicación con varios scripts y carpetas")
 
             # Utiliza fzf para mostrar el menú y obtener la selección del usuario
             selected_option=$(printf '%s\n' "${options[@]}" | fzf --prompt="Incluir scripts. (esc = atras)" --header="Selecciona un de las opciones :" --reverse --no-info)
