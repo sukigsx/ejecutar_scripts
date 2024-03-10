@@ -232,6 +232,7 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
                     echo "Opción no válida"
                     ;;
             esac
+            ;;
 
         2)  #quitar uno o varios scripts
             clear
