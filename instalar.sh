@@ -110,8 +110,8 @@ then
             echo ""
             echo -e "${verde} Desistalando:${borra_colores}"
             echo ""
-            echo -e " Eliminado carpeta (scripts) en /home/$(whoami)/ [${verde}ok${borra_colores}]."; rm -r /home/$(whoami)/scripts; sleep 1
-            echo -e " Eliminado fichero de configuracion (ejecutar_scripts.congig) en /home/$(whoami)/.config/ [${verde}ok${borra_colores}]."; rm /home/$(whoami)/.config/ejecutar_scripts.config; sleep 1
+            echo -e " Eliminado carpeta (scripts) en /home/$(whoami)/ [${verde}ok${borra_colores}]."; rm -r /home/$(whoami)/scripts 2>/dev/null; sleep 1
+            echo -e " Eliminado fichero de configuracion (ejecutar_scripts.congig) en /home/$(whoami)/.config/ [${verde}ok${borra_colores}]."; rm /home/$(whoami)/.config/ejecutar_scripts.config 2>/dev/null; sleep 1
             echo -e " Eliminada la entrada en (.bashrc) [${verde}ok${borra_colores}]."; sed -i "/source \/home\/$(whoami)\/.config\/ejecutar_scripts.config/d" /home/$(whoami)/.bashrc; sleep 1
             echo ""
             echo -e "${verde} Desistalacion completa.${borra_colores}"
