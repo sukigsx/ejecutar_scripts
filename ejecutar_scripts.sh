@@ -248,7 +248,7 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
             selected_files=$( echo "$files" | fzf --multi --height 80% --reverse --prompt="Selecciona scripts: Info: (tab = Marcar multiple) (Enter = Seleccionar) (Esc = Salir)" --no-info)
             # Copiar los archivos seleccionados a /home/sukigsx/scripts
             if [ -n "$selected_files" ]; then
-                echo "$selected_files" | xargs -I {} rm 2>/dev/null {} /home/$(whoami)/scripts/
+                echo "$selected_files" | xargs -I {} rm {} /home/$(whoami)/scripts/
                 echo ""
                 echo -e "${verde} Archivos borrados correctamente.${borra_colores}"; sleep 2
             else
