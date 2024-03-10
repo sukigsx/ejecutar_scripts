@@ -217,7 +217,7 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
 
                 "Incluir aplicación con varios scripts y carpetas")
                     # Utiliza fzf para seleccionar una carpeta o directorio
-                    selected_dir=$(find /home/$(whoami) -type f -name "*.sh" -exec dirname {} \; | sort -u | fzf)
+                    selected_dir=$(find /home/$(whoami) -type f -name "*.sh" -exec dirname {} \; | sort -u | fzf --reverse --prompt="Selecciona la carpeta que contenga al aplicacion en bash deseada")
 
                     # Verifica si se ha seleccionado una carpeta
                     if [ -n "$selected_dir" ]; then
