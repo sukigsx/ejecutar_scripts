@@ -30,7 +30,7 @@ then
     echo ""
 else
     echo ""
-    echo -e echo -e " Conexion a internet [${rojo}ko${borra_colores}]."
+    echo -e " Conexion a internet [${rojo}ko${borra_colores}]."
     var_conexion="no"
     echo ""
     exit
