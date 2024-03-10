@@ -191,7 +191,7 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
             options=("Script sencillo" "Aplicación con varios scripts y carpetas")
 
             # Utiliza fzf para mostrar el menú y obtener la selección del usuario
-            selected_option=$(printf '%s\n' "${options[@]}" | fzf --prompt="Selecciona una opción>" --header="hola" --reverse --preview --no-info)
+            selected_option=$(printf '%s\n' "${options[@]}" | fzf --prompt="Selecciona una opción>" --header="hola" --reverse --no-info)
 
             # Verifica la opción seleccionada y ejecuta el comando correspondiente
             case $selected_option in
