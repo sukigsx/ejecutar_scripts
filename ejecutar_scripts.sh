@@ -238,9 +238,6 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
             clear
             echo -e "${rosa}"; figlet -c Borrar - Scripts; echo -e "${borra_colores}"
             # Buscar archivos .sh en el directorio HOME, excluyendo carpetas ocultas
-            #files=$(find /home/$(whoami) -type f -name "*.sh" | grep -v '/\.')
-            #files=$(find "/home/$(whoami)/scripts/" -type f -name "*.*" ! -name "ejecutar_scripts.sh")
-            #files=$(find "/home/$(whoami)/scripts/" -type f -name "*.*" ! -name "ejecutar_scripts.sh" | sort -t. -k2)
             files=$(find "/home/$(whoami)/scripts/" -type f -name "*.*" ! -name "ejecutar_scripts.sh" | sort -t. -k2 | xargs -I{} basename {})
 
 
@@ -248,7 +245,8 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
             selected_files=$( echo "$files" | fzf --multi --height 80% --reverse --prompt="Selecciona scripts: Info: (tab = Marcar multiple) (Enter = Seleccionar) (Esc = Salir)" --no-info)
             # Copiar los archivos seleccionados a /home/sukigsx/scripts
             if [ -n "$selected_files" ]; then
-                echo "$selected_files" | xargs -I {} rm {} /home/$(whoami)/scripts/
+                echo "$selected_files" | xargs -I {} rm /home/$(whoami)/scripts/{}
+                #echo "$selected_files" | xargs -I {} rm {} /home/$(whoami)/scripts/
                 echo ""
                 echo -e "${verde} Archivos borrados correctamente.${borra_colores}"; sleep 2
             else
