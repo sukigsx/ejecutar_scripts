@@ -314,7 +314,7 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
 
                 # Copiar archivos .sh al directorio /home/sukigsx/scripts/
                 #find "/home/$(whoami)/scripts/$repo" -type f -name "*.sh" -exec cp {} "/home/$(whoami)/scripts/" \;
-                cp /home/$(whoami)/scripts/$repo/* /home/$(whoami)/scripts/
+                cp -r /home/$(whoami)/scripts/$repo/* /home/$(whoami)/scripts/
 
                 # Eliminar el repositorio clonado después de copiar los archivos
                 rm -rf "/home/$(whoami)/scripts/$repo" > /dev/null 2>&1
