@@ -223,9 +223,9 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
                     if [ -n "$selected_dir" ]; then
                         # Copia el contenido de la carpeta seleccionada a /home/usuario/scripts
                         cp -r "$selected_dir"/* /home/$(whoami)/scripts/
-                        echo "Contenido de la carpeta copiado exitosamente a /home/$(whoami)/scripts/"
+                        echo "Contenido de la carpeta copiado exitosamente a /home/$(whoami)/scripts/"; sleep 2
                     else
-                        echo "No se seleccionó ninguna carpeta."
+                        echo "No se seleccionó ninguna carpeta."; sleep 2
                     fi
                     ;;
             *)
@@ -234,7 +234,27 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
             esac
             ;;
 
-        2)  #quitar uno o varios scripts
+        2)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            #quitar uno o varios scripts
             clear
             echo -e "${rosa}"; figlet -c Borrar - Scripts; echo -e "${borra_colores}"
             # Buscar archivos .sh en el directorio HOME, excluyendo carpetas ocultas
