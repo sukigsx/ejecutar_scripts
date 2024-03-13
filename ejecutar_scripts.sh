@@ -188,14 +188,14 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
     case $opcion in
 
         1)  # Define las opciones del menú
-            options=("" "Incluir uno o varios scripts sencillos" "Incluir aplicación con varios scripts y carpetas")
+            options=("" "- Scripts sencillos de un unico fichero sh" "- Aplicaciones mas complejas con varios ficheros y carpetas")
 
             # Utiliza fzf para mostrar el menú y obtener la selección del usuario
             selected_option=$(printf '%s\n' "${options[@]}" | fzf --prompt="Incluir scripts. (esc = atras)" --header="Selecciona un de las opciones :" --reverse --no-info)
 
             # Verifica la opción seleccionada y ejecuta el comando correspondiente
             case $selected_option in
-                "Incluir uno o varios scripts sencillos")
+                "- Scripts sencillos de un unico fichero sh")
                     #incluir uno o varios scripts
                     clear
                     echo -e "${rosa}"; figlet -c Incluir - Scripts; echo -e "${borra_colores}"
@@ -215,7 +215,7 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
                     fi
                     ;;
 
-                "Incluir aplicación con varios scripts y carpetas")
+                "- Aplicaciones mas complejas con varios ficheros y carpetas")
                     # Utiliza fzf para seleccionar una carpeta o directorio
                     selected_dir=$(find /home/$(whoami) -type f -name "*.sh" -exec dirname {} \; | sort -u | fzf --reverse --prompt="Incluir aplicacion en bash. (esc = atras)" --header="Seleciona la carpeta :" --no-info)
 
