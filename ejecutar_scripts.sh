@@ -223,9 +223,11 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
                     if [ -n "$selected_dir" ]; then
                         # Copia el contenido de la carpeta seleccionada a /home/usuario/scripts
                         cp -r "$selected_dir"/* /home/$(whoami)/scripts/
-                        echo "Contenido de la carpeta copiado exitosamente a /home/$(whoami)/scripts/"; sleep 2
+                        echo ""
+                        echo -e "${verde} Contenido de la carpeta copiado exitosamente a /home/$(whoami)/scripts/${borra_colores}"; sleep 2
                     else
-                        echo "No se seleccionó ninguna carpeta."; sleep 2
+                        echo ""
+                        echo -e "${verde}No se seleccionó ninguna carpeta.${borra_colores}"; sleep 2
                     fi
                     ;;
             *)
