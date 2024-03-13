@@ -237,7 +237,7 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
             ;;
 
         2)  # Utiliza fzf para seleccionar una carpeta o directorio
-            selected_dirs=$(find /home/$(whoami)/scripts -mindepth 1 -maxdepth 1 | fzf --reverse --prompt="Selecciona scripts y carpetas: Info: (tab = Marcar multiple) (Enter = Seleccionar) (Esc = Salir)" --header="Selecciona lo que quieres borrar:" --no-info --multi)
+            selected_dirs=$(find /home/$(whoami)/scripts -mindepth 1 -maxdepth 1 ! -name "ejecutar_scripts.sh" | fzf --reverse --prompt="Selecciona scripts y carpetas: Info: (tab = Marcar múltiples) (Enter = Seleccionar) (Esc = Salir)" --header="Selecciona lo que quieres borrar:" --no-info --multi)
 
             for borrar in $selected_dirs; do
                 sudo rm -r $borrar
