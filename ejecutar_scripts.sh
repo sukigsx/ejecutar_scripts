@@ -294,7 +294,8 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
             clear
             echo -e "${rosa}"; figlet -c Scripts-sukigsx; echo -e "${borra_colores}"
             echo ""
-            repos=$(curl -s "https://api.github.com/users/sukigsx/repos" | jq -r '.[].name' | grep -vE 'sukigsx.github.io|ejecutar_scripts|MegaTools_gui')
+            #repos=$(curl -s "https://api.github.com/users/sukigsx/repos" | jq -r '.[].name' | grep -vE 'sukigsx.github.io|ejecutar_scripts|MegaTools_gui')
+            repos=$(curl -s "https://api.github.com/users/sukigsx/repos" | jq -r '.[].name' | grep -vE 'sukigsx.github.io|ejecutar_scripts')
             #repos=$(curl -s "https://api.github.com/users/sukigsx/repos" | jq -r '.[].name' | grep -vE 'sukigsx.github.io|ejecutar_scripts' | grep -v 'gui')
 
             echo -e "${azul} Lista de repositorios de sukigsx.${borra_colores}"
