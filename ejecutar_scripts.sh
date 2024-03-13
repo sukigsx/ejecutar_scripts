@@ -244,12 +244,12 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
                 for borrar in $selected_dirs; do
                 # Verifica si es un directorio
                 if [ -d "/home/$(whoami)/scripts/$borrar" ]; then
-                    rm -r "/home/$(whoami)/scripts/$borrar"
+                    rm -r $borrar
                     echo ""
                     echo -e "${verde}Contenido de la carpeta \"$borrar\" borrado exitosamente de /home/$(whoami)/scripts/${borra_colores}"
                 elif [ -f "/home/$(whoami)/scripts/$borrar" ]; then
                     # Si es un archivo regular, elimínalo directamente
-                    rm "/home/$(whoami)/scripts/$borrar"
+                    rm $borrar
                     echo ""
                     echo -e "${verde}Archivo \"$borrar\" borrado exitosamente de /home/$(whoami)/scripts/${borra_colores}"
                 fi
