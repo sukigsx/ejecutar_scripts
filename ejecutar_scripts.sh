@@ -236,76 +236,26 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
             esac
             ;;
 
-        2)  # Define las opciones del menú
-            options=("" "- Borrar scripts sencillos de un unico fichero sh" "- Borrar carpeta de Aplicaciones mas complejas con varios ficheros y carpetas")
+        2)  # Utiliza fzf para seleccionar una carpeta o directorio
+            selected_dirs=$(find /home/$(whoami)/scripts -mindepth 1 -maxdepth 1 | fzf --reverse --prompt="Selecciona scripts y carpetas: Info: (tab = Marcar multiple) (Enter = Seleccionar) (Esc = Salir))" --header="Selecciona lo que quieres borrar para borrar:" --no-info --multi)
 
-            # Utiliza fzf para mostrar el menú y obtener la selección del usuario
-            selected_option=$(printf '%s\n' "${options[@]}" | fzf --prompt="Incluir scripts. (esc = atras)" --header="Selecciona un de las opciones :" --reverse --no-info)
+            # Verifica si se ha seleccionado una carpeta
+            for borrar in $selected_dir
+            do
+                # Copia el contenido de la carpeta seleccionada a /home/usuario/scripts
+                rm -r /home/$(whoami)/scripts/$borrar
+                echo ""
+                echo -e "${verde} Contenido de la carpeta copiado exitosamente a /home/$(whoami)/scripts/${borra_colores}"; sleep 2
+                echo ""
+                echo -e "${verde}No se seleccionó ninguna carpeta.${borra_colores}"; sleep 2
+            done
+            ;;
 
-            # Verifica la opción seleccionada y ejecuta el comando correspondiente
-            case $selected_option in
-                "- Borrar scripts sencillos de un unico fichero sh")
-                    #quitar uno o varios scripts
-                    clear
-                    echo -e "${rosa}"; figlet -c Borrar - Scripts; echo -e "${borra_colores}"
-                    # Buscar archivos .sh en el directorio HOME, excluyendo carpetas ocultas
-                    files=$(find "/home/$(whoami)/scripts/" -type f -name "*.*" ! -name "ejecutar_scripts.sh" | sort -t. -k2 | xargs -I{} basename {})
-
-
-                    # Usar fzf para la selección múltiple
-                    selected_files=$( echo "$files" | fzf --multi --height 80% --reverse --prompt="Selecciona scripts: Info: (tab = Marcar multiple) (Enter = Seleccionar) (Esc = Salir)" --no-info)
-                    # Copiar los archivos seleccionados a /home/sukigsx/scripts
-                    if [ -n "$selected_files" ]; then
-                        echo "$selected_files" | xargs -I {} rm /home/$(whoami)/scripts/{}
-                        #echo "$selected_files" | xargs -I {} rm {} /home/$(whoami)/scripts/
-                        echo ""
-                        echo -e "${verde} Archivos borrados correctamente.${borra_colores}"; sleep 2
-                    else
-                        echo ""
-                        echo -e "${amarillo} Ningun archivo seleccionado.${borra_colores}"; sleep 2
-                    fi
-                    ;;
-
-                "- Borrar carpeta de Aplicaciones mas complejas con varios ficheros y carpetas")
-                    # Utiliza fzf para seleccionar una carpeta o directorio
-                    selected_dir=$(find /home/$(whoami) -type f -name "*.sh" -exec dirname {} \; | sort -u | fzf --reverse --prompt="Borrar aplicacion en bash. (esc = atras)" --header="Seleciona la carpeta donde esta la aplicacion para borrar:" --no-info)
-
-                    # Verifica si se ha seleccionado una carpeta
-                    if [ -n "$selected_dir" ]; then
-                        # Copia el contenido de la carpeta seleccionada a /home/usuario/scripts
-                        rm -r /home/$(whoami)/scripts/$selected_dir
-                        echo ""
-                        echo -e "${verde} Contenido de la carpeta copiado exitosamente a /home/$(whoami)/scripts/${borra_colores}"; sleep 2
-                    else
-                        echo ""
-                        echo -e "${verde}No se seleccionó ninguna carpeta.${borra_colores}"; sleep 2
-                    fi
-                    ;;
             *)
                     echo "Opción no válida"
                     ;;
             esac
             ;;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         3)  #guardar tus scripts
             clear
