@@ -251,11 +251,6 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
             done
             ;;
 
-            *)
-                    echo "Opción no válida"
-                    ;;
-            esac
-            ;;
 
         3)  #guardar tus scripts
             clear
