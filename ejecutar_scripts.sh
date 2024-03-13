@@ -237,18 +237,28 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
             ;;
 
         2)  # Utiliza fzf para seleccionar una carpeta o directorio
-            selected_dirs=$(find /home/$(whoami)/scripts -mindepth 1 -maxdepth 1 | fzf --reverse --prompt="Selecciona scripts y carpetas: Info: (tab = Marcar multiple) (Enter = Seleccionar) (Esc = Salir))" --header="Selecciona lo que quieres borrar para borrar:" --no-info --multi)
+            selected_dirs=$(find /home/$(whoami)/scripts -mindepth 1 -maxdepth 1 | fzf --reverse --prompt="Selecciona scripts y carpetas: Info: (tab = Marcar multiple) (Enter = Seleccionar) (Esc = Salir)" --header="Selecciona lo que quieres borrar:" --no-info --multi)
 
-            # Verifica si se ha seleccionado una carpeta
-            for borrar in $selected_dir
-            do
-                # Copia el contenido de la carpeta seleccionada a /home/usuario/scripts
-                rm -r /home/$(whoami)/scripts/$borrar
+            # Verifica si se ha seleccionado alguna carpeta o archivo
+            if [ -n "$selected_dirs" ]; then
+                for borrar in $selected_dirs; do
+                # Verifica si es un directorio
+                if [ -d "/home/$(whoami)/scripts/$borrar" ]; then
+                    rm -r "/home/$(whoami)/scripts/$borrar"
+                    echo ""
+                    echo -e "${verde}Contenido de la carpeta \"$borrar\" borrado exitosamente de /home/$(whoami)/scripts/${borra_colores}"
+                elif [ -f "/home/$(whoami)/scripts/$borrar" ]; then
+                    # Si es un archivo regular, elimínalo directamente
+                    rm "/home/$(whoami)/scripts/$borrar"
+                    echo ""
+                    echo -e "${verde}Archivo \"$borrar\" borrado exitosamente de /home/$(whoami)/scripts/${borra_colores}"
+                fi
+                done
+            else
                 echo ""
-                echo -e "${verde} Contenido de la carpeta copiado exitosamente a /home/$(whoami)/scripts/${borra_colores}"; sleep 2
+                echo -e "${verde}No se seleccionó nada para borrar.${borra_colores}"
                 echo ""
-                echo -e "${verde}No se seleccionó ninguna carpeta.${borra_colores}"; sleep 2
-            done
+            fi
             ;;
 
 
