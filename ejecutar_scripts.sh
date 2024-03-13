@@ -242,7 +242,7 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
             for borrar in $selected_dirs; do
                 sudo rm -r $borrar
                 echo ""
-                echo -e "${verde}Contenido de la carpeta \"$borrar\" borrado exitosamente de /home/$(whoami)/scripts/${borra_colores}"
+                echo -e "${verde}Contenido de la carpeta \"$borrar\" borrado exitosamente de /home/$(whoami)/scripts/${borra_colores}"; sleep 1
             done
             ;;
 
