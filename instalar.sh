@@ -116,9 +116,8 @@ then
             echo ""
             echo -e "${verde} Desistalacion completa.${borra_colores}"
             echo ""
-            read -p " Se cerrara tu terminal para que surjan efecto los cambios. Pulsa una tecla para continuar." pause
-            #xdotool windowkill `xdotool getactivewindow`
-            #kill -9 $(ps -o ppid= -p $$)
+            echo -e "${amarillo} Tienes que reiniciar la terminal para que surjan efecto los cambios.${borra_colores}"
+            echo ""
             exit
             ;;
 
@@ -153,5 +152,6 @@ else
     echo -e " Instalacion completada [${verde}ok${borra_colores}] ."
     echo ""
     echo -e "${amarillo} Tienes que reiniciar la terminal para que surjan efecto los cambios.${borra_colores}"
+    echo ""
     exit
 fi
