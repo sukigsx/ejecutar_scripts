@@ -37,9 +37,9 @@ trap ctrl_c INT
 function ctrl_c()
 {
 clear
-figlet -c Gracias por
-figlet -c utilizar mi
-figlet -c script
+figlet Gracias por
+figlet utilizar mi
+figlet script
 #wmctrl -r :ACTIVE: -b remove,maximized_vert,maximized_horz
 exit
 }
@@ -154,7 +154,7 @@ echo ""
 clear
 #maximiza la terminal.
 #wmctrl -r :ACTIVE: -b add,maximized_vert,maximized_horz
-echo -e "${rosa}"; figlet -c sukigsx; echo -e "${borra_colores}"
+echo -e "${rosa}"; figlet sukigsx; echo -e "${borra_colores}"
 echo ""
 echo -e "${verde} Diseñado por sukigsx / Contacto:   scripts@mbbsistemas.es${borra_colores}"
 echo -e "${verde}                                    https://repositorio.mbbsistemas.es${borra_colores}"
@@ -165,7 +165,7 @@ echo -e "${azul}   Conexion a internet  =${borra_colores} $var_conexion"
 echo -e "${azul}   Software_necesario   =${borra_colores} $var_software"
 echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
     echo ""
-    echo -e "${rosa}"; figlet -c Menu - Opciones; echo -e "${borra_colores}"
+    echo -e "${rosa}"; figlet Menu - Opciones; echo -e "${borra_colores}"
     echo ""
     echo -e "  ${azul}1.${borra_colores} Incluir uno o varios scripts."
     echo ""
@@ -198,7 +198,7 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
                 "- Scripts sencillos de un unico fichero sh")
                     #incluir uno o varios scripts
                     clear
-                    echo -e "${rosa}"; figlet -c Incluir - Scripts; echo -e "${borra_colores}"
+                    echo -e "${rosa}"; figlet Incluir - Scripts; echo -e "${borra_colores}"
                     # Buscar archivos .sh en el directorio HOME, excluyendo carpetas ocultas
                     #files=$(find /home/$(whoami) -type f -name "*.sh" | grep -v '/\.')
                     files=$(find "/home/$(whoami)/" -type f -name "*.sh" -not -path '*/\.*' -not -path "/home/$(whoami)/scripts/*" -not -path "/home/$(whoami)/ejecutar_scripts/*")
@@ -249,7 +249,7 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
 
         3)  #guardar tus scripts
             clear
-            echo -e "${rosa}"; figlet -c Guardar-Scripts; echo -e "${borra_colores}"
+            echo -e "${rosa}"; figlet Guardar-Scripts; echo -e "${borra_colores}"
             echo ""
             read -p " Dime la ruta absoluta en donde guardar tus scripts -> " ruta_guardar
             if [ -d $ruta_guardar ]
@@ -292,7 +292,7 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
 
         4)  #Instalar scripts de sukigsx
             clear
-            echo -e "${rosa}"; figlet -c Scripts-sukigsx; echo -e "${borra_colores}"
+            echo -e "${rosa}"; figlet Scripts-sukigsx; echo -e "${borra_colores}"
             echo ""
             #repos=$(curl -s "https://api.github.com/users/sukigsx/repos" | jq -r '.[].name' | grep -vE 'sukigsx.github.io|ejecutar_scripts|MegaTools_gui')
             repos=$(curl -s "https://api.github.com/users/sukigsx/repos" | jq -r '.[].name' | grep -vE 'sukigsx.github.io|ejecutar_scripts')
@@ -347,7 +347,7 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
 
         90) #ayuda
             clear
-            echo -e "${rosa}"; figlet -c Ayuda-Scripts; echo -e "${borra_colores}"
+            echo -e "${rosa}"; figlet Ayuda-Scripts; echo -e "${borra_colores}"
             echo -e "${azul}# ejecutar_scripts${borra_colores}"
             echo ""
             echo "El script proporcionado es una herramienta interactiva que permite a los usuarios ejecutar scripts Bash almacenados en un directorio específico."
@@ -376,7 +376,7 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
             echo "El script define varias variables que contienen códigos de colores ANSI para facilitar la salida de texto con colores en la terminal."
             echo ""
             echo -e "${azul}## Comprueba los programas necesarios:${borra_colores}"
-            echo "Comprueba (git, diff, ping, figlet -c, apt y fzf) que están instalados en el sistema."
+            echo "Comprueba (git, diff, ping, figlet, apt y fzf) que están instalados en el sistema."
             echo "Si falta alguno de estos programas, intenta instalarlo automáticamente utilizando apt."
             echo "Si no puede instalar el software después de tres intentos o si no hay conexión a Internet, muestra un mensaje de error y termina el script."
             echo ""
