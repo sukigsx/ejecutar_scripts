@@ -188,14 +188,14 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
     case $opcion in
 
         1)  # Define las opciones del menú
-            options=("" "Incluir uno o varios scripts sencillos" "Incluir aplicación con varios scripts y carpetas")
+            options=("" "- Scripts sencillos de un unico fichero sh" "- Aplicaciones mas complejas con varios ficheros y carpetas")
 
             # Utiliza fzf para mostrar el menú y obtener la selección del usuario
             selected_option=$(printf '%s\n' "${options[@]}" | fzf --prompt="Incluir scripts. (esc = atras)" --header="Selecciona un de las opciones :" --reverse --no-info)
 
             # Verifica la opción seleccionada y ejecuta el comando correspondiente
             case $selected_option in
-                "Incluir uno o varios scripts sencillos")
+                "- Scripts sencillos de un unico fichero sh")
                     #incluir uno o varios scripts
                     clear
                     echo -e "${rosa}"; figlet -c Incluir - Scripts; echo -e "${borra_colores}"
@@ -203,7 +203,7 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
                     #files=$(find /home/$(whoami) -type f -name "*.sh" | grep -v '/\.')
                     files=$(find "/home/$(whoami)/" -type f -name "*.sh" -not -path '*/\.*' -not -path "/home/$(whoami)/scripts/*" -not -path "/home/$(whoami)/ejecutar_scripts/*")
                     # Usar fzf para la selección múltiple
-                    selected_files=$( echo "$files" | fzf --multi --height 80% --reverse --prompt="Selecciona scripts: Info: (tab = Marcar multiple) (Enter = Seleccionar) (Esc = Salir))" --no-info)
+                    selected_files=$( echo "$files" | fzf --multi --height 80% --reverse --prompt="Selecciona scripts: Info: (tab = Marcar multiple) (Enter = Seleccionar) (Esc = Salir))" --header="Scripts encontrados en tu carpeta HOME de usuario :" --no-info)
                     # Copiar los archivos seleccionados a /home/sukigsx/scripts
                     if [ -n "$selected_files" ]; then
                         echo "$selected_files" | xargs -I {} cp {} /home/$(whoami)/scripts/
@@ -215,17 +215,19 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
                     fi
                     ;;
 
-                "Incluir aplicación con varios scripts y carpetas")
+                "- Aplicaciones mas complejas con varios ficheros y carpetas")
                     # Utiliza fzf para seleccionar una carpeta o directorio
-                    selected_dir=$(find /home/$(whoami) -type f -name "*.sh" -exec dirname {} \; | sort -u | fzf --reverse --prompt="Incluir aplicacion en bash. (esc = atras)" --header="Seleciona la carpeta :" --no-info)
+                    selected_dir=$(find /home/$(whoami) -type f -name "*.sh" -exec dirname {} \; | sort -u | fzf --reverse --prompt="Incluir aplicacion en bash. (esc = atras)" --header="Seleciona la carpeta donde esta la aplicacion :" --no-info)
 
                     # Verifica si se ha seleccionado una carpeta
                     if [ -n "$selected_dir" ]; then
                         # Copia el contenido de la carpeta seleccionada a /home/usuario/scripts
                         cp -r "$selected_dir"/* /home/$(whoami)/scripts/
-                        echo "Contenido de la carpeta copiado exitosamente a /home/$(whoami)/scripts/"
+                        echo ""
+                        echo -e "${verde} Contenido de la carpeta copiado exitosamente a /home/$(whoami)/scripts/${borra_colores}"; sleep 2
                     else
-                        echo "No se seleccionó ninguna carpeta."
+                        echo ""
+                        echo -e "${verde}No se seleccionó ninguna carpeta.${borra_colores}"; sleep 2
                     fi
                     ;;
             *)
@@ -234,26 +236,16 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
             esac
             ;;
 
-        2)  #quitar uno o varios scripts
-            clear
-            echo -e "${rosa}"; figlet -c Borrar - Scripts; echo -e "${borra_colores}"
-            # Buscar archivos .sh en el directorio HOME, excluyendo carpetas ocultas
-            files=$(find "/home/$(whoami)/scripts/" -type f -name "*.*" ! -name "ejecutar_scripts.sh" | sort -t. -k2 | xargs -I{} basename {})
+        2)  # Utiliza fzf para seleccionar una carpeta o directorio
+            selected_dirs=$(find /home/$(whoami)/scripts -mindepth 1 -maxdepth 1 ! -name "ejecutar_scripts.sh" | fzf --reverse --prompt="Selecciona scripts y carpetas: Info: (tab = Marcar múltiples) (Enter = Seleccionar) (Esc = Salir)" --header="Selecciona lo que quieres borrar:" --no-info --multi)
 
-
-            # Usar fzf para la selección múltiple
-            selected_files=$( echo "$files" | fzf --multi --height 80% --reverse --prompt="Selecciona scripts: Info: (tab = Marcar multiple) (Enter = Seleccionar) (Esc = Salir)" --no-info)
-            # Copiar los archivos seleccionados a /home/sukigsx/scripts
-            if [ -n "$selected_files" ]; then
-                echo "$selected_files" | xargs -I {} rm /home/$(whoami)/scripts/{}
-                #echo "$selected_files" | xargs -I {} rm {} /home/$(whoami)/scripts/
+            for borrar in $selected_dirs; do
+                sudo rm -r $borrar
                 echo ""
-                echo -e "${verde} Archivos borrados correctamente.${borra_colores}"; sleep 2
-            else
-                echo ""
-                echo -e "${amarillo} Ningun archivo seleccionado.${borra_colores}"; sleep 2
-            fi
+                echo -e "${verde}Carpeta/Fichero ${borra_colores}$borrar${verde} borrado exitosamente de /home/$(whoami)/scripts/${borra_colores}"; sleep 2
+            done
             ;;
+
 
         3)  #guardar tus scripts
             clear
@@ -302,7 +294,8 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
             clear
             echo -e "${rosa}"; figlet -c Scripts-sukigsx; echo -e "${borra_colores}"
             echo ""
-            repos=$(curl -s "https://api.github.com/users/sukigsx/repos" | jq -r '.[].name' | grep -vE 'sukigsx.github.io|ejecutar_scripts|MegaTools_gui')
+            #repos=$(curl -s "https://api.github.com/users/sukigsx/repos" | jq -r '.[].name' | grep -vE 'sukigsx.github.io|ejecutar_scripts|MegaTools_gui')
+            repos=$(curl -s "https://api.github.com/users/sukigsx/repos" | jq -r '.[].name' | grep -vE 'sukigsx.github.io|ejecutar_scripts')
             #repos=$(curl -s "https://api.github.com/users/sukigsx/repos" | jq -r '.[].name' | grep -vE 'sukigsx.github.io|ejecutar_scripts' | grep -v 'gui')
 
             echo -e "${azul} Lista de repositorios de sukigsx.${borra_colores}"
@@ -322,7 +315,7 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
 
                 # Copiar archivos .sh al directorio /home/sukigsx/scripts/
                 #find "/home/$(whoami)/scripts/$repo" -type f -name "*.sh" -exec cp {} "/home/$(whoami)/scripts/" \;
-                cp /home/$(whoami)/scripts/$repo/* /home/$(whoami)/scripts/
+                cp -r /home/$(whoami)/scripts/$repo/* /home/$(whoami)/scripts/
 
                 # Eliminar el repositorio clonado después de copiar los archivos
                 rm -rf "/home/$(whoami)/scripts/$repo" > /dev/null 2>&1
@@ -347,9 +340,8 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
             echo ""
             echo -e "${verde} Desistalacion completa.${borra_colores}"
             echo ""
-            read -p " Se cerrara tu terminal para que surjan efecto los cambios. Pulsa una tecla para continuar." pause
-            #xdotool windowkill `xdotool getactivewindow`
-            #kill -9 $(ps -o ppid= -p $$)
+            echo -e "${amarillo} Tienes que reiniciar la terminal para que surjan efecto los cambios.${borra_colores}"
+            echo ""
             exit
             ;;
 
@@ -404,7 +396,7 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
             echo "Permite al usuario seleccionar uno o varios archivos de script (archivos.sh) en el sistema y copiarlos a la carpeta /home/tu_usuario/scripts/."
             echo ""
             echo -e "${azul}#### Quitar Scripts:${borra_colores}"
-            echo "Permite al usuario seleccionar uno o varios archivos de script existentes en la carpeta /home/tu_usuario/scripts/ y eliminarlos."
+            echo "Permite al usuario seleccionar uno o varios archivos o carpetas de script existentes en la carpeta /home/tu_usuario/scripts/ y eliminarlos."
             echo ""
             echo -e "${azul}#### Guardar Scripts:${borra_colores}"
             echo "Permite al usuario seleccionar uno o varios archivos de script existentes en la carpeta /home/tu_usuario/scripts/ y copiarlos a una ubicación específica proporcionada por el usuario."
