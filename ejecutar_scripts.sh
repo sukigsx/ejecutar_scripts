@@ -303,7 +303,7 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
             echo -e "${azul} Lista de repositorios de sukigsx.${borra_colores}"
             echo ""
 
-            PS3=" Selecciona un repositorio: "
+            PS3="Selecciona un repositorio: "
 
             select repo in $repos "Salir"; do
 
@@ -311,6 +311,7 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
             if [[ -z "$repo" ]]; then
                 echo ""
                 echo -e "${rojo} Opción inválida. Selecciona un número de la lista.${borra_colores}"
+                echo ""
                 continue
             fi
 
