@@ -178,7 +178,7 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
     echo ""
     echo -e " ${azul}90.${borra_colores} Ayuda."
     echo ""
-    echo -e " ${azul}99.${borra_colores} Salir."
+    echo -e " ${azul}99.${borra_colores} Salirrrrr."
     echo ""
     read -p " ¿ Que hacemos ?, Seleccione una opción : " opcion
 
