@@ -289,7 +289,65 @@ echo -e "${azul}   Software actualizado =${borra_colores} $var_actualizado"
             fi
             ;;
 
-        4)  #Instalar scripts de sukigsx
+        4)
+            #!/bin/bash
+
+clear
+echo ""
+echo -e "${rosa} Scripts-sukigsx ${borra_colores}"
+echo ""
+
+# Obtener repositorios (excluyendo algunos)
+repos=$(curl -s "https://api.github.com/users/sukigsx/repos" \
+| jq -r '.[].name' \
+| grep -vE 'sukigsx.github.io|ejecutar_scripts')
+
+echo -e "${azul} Lista de repositorios de sukigsx.${borra_colores}"
+echo ""
+
+PS3="Selecciona un repositorio: "
+
+select repo in $repos "Salir"; do
+
+    # Validar selección inválida
+    if [[ -z "$repo" ]]; then
+        echo -e "${rojo}Opción inválida. Selecciona un número de la lista.${borra_colores}"
+        continue
+    fi
+
+    case "$repo" in
+        "Salir")
+            echo "Saliendo..."
+            break
+            ;;
+        *)
+            echo ""
+            echo -e "${verde}Seleccionaste el repositorio:${borra_colores} $repo"
+            sleep 1
+
+            DEST="/home/$(whoami)/scripts/$repo"
+
+            # Clonar repositorio
+            if ! git clone "https://github.com/sukigsx/$repo.git" "$DEST" > /dev/null 2>&1; then
+                echo -e "${rojo}Error al clonar el repositorio.${borra_colores}"
+                continue
+            fi
+
+            # Copiar contenido
+            cp -r "$DEST/"* "/home/$(whoami)/scripts/"
+
+            # Eliminar repositorio clonado
+            rm -rf "$DEST" > /dev/null 2>&1
+
+            echo -e "${verde}Archivos del repositorio${borra_colores} $repo ${verde}han sido copiados a${borra_colores} /home/$(whoami)/scripts/${borra_colores}"
+            sleep 2
+            break
+            ;;
+    esac
+done
+;;
+
+        popo)  #Instalar scripts de sukigsx
             clear
             echo ""
             echo -e "${rosa} Scripts-sukigsx ${borra_colores}"
