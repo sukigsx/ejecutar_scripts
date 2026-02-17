@@ -6,8 +6,8 @@
 
 export NombreScript="Ejecutar_scripts"
 export DescripcionDelScript="Control interactivo de tus scripts"
-export Correo=""
-export Web=""
+export Correo="scripts@mbbsistemas.es"
+export Web="https://repositorio.mbbsistemas.es"
 export version="1.0"
 conexion="Sin comprobar"
 software="Sin comprobar"
