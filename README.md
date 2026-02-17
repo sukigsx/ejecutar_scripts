@@ -74,9 +74,9 @@ Simplemente debes clonar el repositorio con la orden:
 
 Entras en la carpeta y ejecutas instalar.sh con la orden:
     
-    ./instalar.sh 
+    ./Ejecutar_scripts.sh
 o bien:
 
-    bash instalar.sh
+    bash Ejecutar_scripts.sh
 
 # Espero os guste !!!!!!!!!!
