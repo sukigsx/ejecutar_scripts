@@ -21,6 +21,7 @@ ruta_escritorio=$(xdg-user-dir DESKTOP) #es la ruta de tu escritorio sin la / al
 # VARIABLES PARA LA ACTUALIZAION CON GITHUB
 NombreScriptActualizar="Ejecutar_scripts.sh" #contiene el nombre del script para poder actualizar desde github
 DireccionGithub="https://github.com/sukigsx/ejecutar_scripts.git" #contiene la direccion de github para actualizar el script
+nombre_carpeta_repositorio="ejecutar_scripts" #poner el nombre de la carpeta cuando se clona el repo para poder eliminarla
 
 #VARIABLES DE SOFTWARE NECESARIO
 # Asociamos comandos con el paquete que los contiene [comando a comprobar]="paquete a instalar"
@@ -536,9 +537,27 @@ else
     echo ""
     echo -e " Instalacion completada [${verde}ok${borra_colores}] ."
     echo ""
-    echo -e "${amarillo} Tienes que reiniciar la terminal para que surjan efecto los cambios.${borra_colores}"
-    echo ""
-    exit
+
+    read -rp " Quieres eliminar la carpeta del repositorio clonada $nombre_carpeta_repositorio (S/n): " respuesta
+
+    case "$respuesta" in
+        s|S|si|SI)
+            cd ..
+            rm -rf "$nombre_carpeta_repositorio"
+            echo -e "${verde} Carpeta eliminada.${borra_colores}"; sleep 1
+            echo ""
+            echo -e "${amarillo} Tienes que reiniciar la terminal para que surjan efecto los cambios.${borra_colores}"
+            echo ""
+            exit
+            ;;
+        *)
+            echo -e " Carpeta${amarillo} NO ${borra_colores}eliminada."; sleep 1
+            echo ""
+            echo -e "${amarillo} Tienes que reiniciar la terminal para que surjan efecto los cambios.${borra_colores}"
+            echo ""
+            exit
+            ;;
+    esac
 fi
 }
 
