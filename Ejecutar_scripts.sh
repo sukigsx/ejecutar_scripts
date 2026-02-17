@@ -544,13 +544,16 @@ else
         s|S|si|SI)
             cd ..
             rm -rf "$nombre_carpeta_repositorio"
+            echo ""
             echo -e "${verde} Carpeta eliminada.${borra_colores}"; sleep 1
             echo ""
             echo -e "${amarillo} Tienes que reiniciar la terminal para que surjan efecto los cambios.${borra_colores}"
             echo ""
+            cd ..
             exit
             ;;
         *)
+            echo ""
             echo -e " Carpeta${amarillo} NO ${borra_colores}eliminada."; sleep 1
             echo ""
             echo -e "${amarillo} Tienes que reiniciar la terminal para que surjan efecto los cambios.${borra_colores}"
