@@ -72,7 +72,7 @@ echo -e "${rosa} |___/\__,_|_|\_\_|\__, |___/_/\_\  ${azul}   Software necesario
 echo -e "${rosa}                  |___/             ${azul}   Actualizado        =${borra_colores} $actualizado"
 echo -e "${rosa}                                    ${azul}   Sistema paqueteria =${borra_colores} $paqueteria"
 echo -e ""
-echo -e "${azul} Contacto:${borra_colores} (Correo $Correo) (Web $Web)${borra_colores}"
+echo -e "${azul} Contacto:${borra_colores} (Correo${rosa} $Correo${borra_colores}) (Web $Web)${borra_colores}"
 echo ""
 }
 
