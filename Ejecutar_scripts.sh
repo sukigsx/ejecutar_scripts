@@ -5,7 +5,7 @@
 #variables para el menu_info
 
 export NombreScript="Ejecutar_scripts"
-export DescripcionDelScript="esto se esta probando"
+export DescripcionDelScript="Control interactivo de tus scripts"
 export Correo=""
 export Web=""
 export version="1.0"
@@ -20,7 +20,7 @@ ruta_escritorio=$(xdg-user-dir DESKTOP) #es la ruta de tu escritorio sin la / al
 
 # VARIABLES PARA LA ACTUALIZAION CON GITHUB
 NombreScriptActualizar="Ejecutar_scripts.sh" #contiene el nombre del script para poder actualizar desde github
-DireccionGithub="https://github.com/sukigsx/pruebas" #contiene la direccion de github para actualizar el script
+DireccionGithub="https://github.com/sukigsx/ejecutar_scripts.git" #contiene la direccion de github para actualizar el script
 
 #VARIABLES DE SOFTWARE NECESARIO
 # Asociamos comandos con el paquete que los contiene [comando a comprobar]="paquete a instalar"
