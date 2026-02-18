@@ -306,7 +306,7 @@ if [ -f "$FILE_CHECK" ] && grep -q "^source /home/$(whoami)/.Ejecutar_scripts.co
     echo ""
     echo -e "  ${azul}4.${borra_colores} Instalar scripts de sukigsx"
     echo ""
-    echo -e "  ${azul}5.${borra_colores} Ver los scripts wue tienes $(whoami)"
+    echo -e "  ${azul}5.${borra_colores} Ver los scripts que tienes $(whoami)"
     echo ""
     echo -e " ${azul}10.${borra_colores} Desistalar. (${rojo}Cuidado se borrara el contenido de la carpeta scripts${borra_colores})"
     echo ""
