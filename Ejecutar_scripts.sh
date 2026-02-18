@@ -368,7 +368,7 @@ if [ -f "$FILE_CHECK" ] && grep -q "^source /home/$(whoami)/.Ejecutar_scripts.co
             ;;
 
         2)  # Utiliza fzf para seleccionar una carpeta o directorio
-            selected_dirs=$(find /home/$(whoami)/scripts -mindepth 1 -maxdepth 1 ! -name "Ejecutar_scripts.sh" | fzf --reverse --prompt="Selecciona scripts y carpetas: Info: (tab = Marcar múltiples) (Enter = Seleccionar) (Esc = Salir)" --header="Selecciona lo que quieres borrar:" --no-info --multi)
+            selected_dirs=$(find /home/$(whoami)/scripts -mindepth 1 -maxdepth 1 ! -name "Ejecutar_scripts.*" | fzf --reverse --prompt="Selecciona scripts y carpetas: Info: (tab = Marcar múltiples) (Enter = Seleccionar) (Esc = Salir)" --header="Selecciona lo que quieres borrar:" --no-info --multi)
 
             for borrar in $selected_dirs; do
                 sudo rm -r $borrar
