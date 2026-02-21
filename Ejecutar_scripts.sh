@@ -37,6 +37,8 @@ nombre_carpeta_repositorio="ejecutar_scripts" #poner el nombre de la carpeta cua
         [grep]="grep"
         [jq]="jq"
         [sed]="sed"
+        [xdg-user-dir]="xdg-user-dirs"
+        [wget]="wget"
     )
 
 
