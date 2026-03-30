@@ -11,7 +11,7 @@ export Web="https://repositorio.mbbsistemas.es"
 export version="1.0"
 conexion="Sin comprobar"
 software="Sin comprobar"
-actualizado="No se ha podido comprobar la actualizacion del script"
+actualizado="Sin comprobar"
 paqueteria="No detectada"
 
 # VARIABLE QUE RECOJEN LAS RUTAS
@@ -27,21 +27,25 @@ nombre_carpeta_repositorio="ejecutar_scripts" #poner el nombre de la carpeta cua
 # Asociamos comandos con el paquete que los contiene [comando a comprobar]="paquete a instalar"
     declare -A requeridos
     requeridos=(
+        #requeridos para poder actualizar
         [git]="git"
-        [nano]="nano"
         [diff]="diff"
         [sudo]="sudo"
         [ping]="ping"
+        [xdg-user-dir]="xdg-user-dirs"
+
+        #requeridos para el script en si
+        [nano]="nano"
         [fzf]="fzf"
         [curl]="curl"
         [grep]="grep"
         [jq]="jq"
         [sed]="sed"
-        [xdg-user-dir]="xdg-user-dirs"
         [wget]="wget"
     )
-
-
+###########################
+## FUNCIONES PRINCIPALES ##
+###########################
 #colores
 rojo="\e[0;31m\033[1m" #rojo
 verde="\e[;32m\033[1m"
@@ -78,47 +82,56 @@ echo -e "${azul} Contacto:${borra_colores} ( Correo${rosa} $Correo${borra_colore
 echo ""
 }
 
-
-actualizar_script(){
-    # actualizar el script
-    #para que esta funcion funcione necesita:
-    #   conexion a internet
-    #   la paleta de colores
-    #   software: git diff
+#comprobar si hay actualizaciones y que lo marque en el menu_info y tambien pregunta si quieres actualizar
+comprobar_actualizaciones(){
 
     git clone $DireccionGithub /tmp/comprobar >/dev/null 2>&1
-
     diff $ruta_ejecucion/$NombreScriptActualizar /tmp/comprobar/$NombreScriptActualizar >/dev/null 2>&1
-
 
     if [ $? = 0 ]
     then
         #esta actualizado, solo lo comprueba
-        echo ""
-        echo -e "${verde} El script${borra_colores} $0 ${verde}esta actualizado.${borra_colores}"
-        echo ""
+        actualizado="SI"
         chmod -R +w /tmp/comprobar
         rm -R /tmp/comprobar
-        actualizado="SI"
-        sleep 2
     else
         #hay que actualizar, comprueba y actualiza
         echo ""
-        echo -e "${amarillo} EL script${borra_colores} $0 ${amarillo}NO esta actualizado.${borra_colores}"
-        echo -e "${verde} Se procede a su actualizacion automatica.${borra_colores}"
-        sleep 3
-        cp -r /tmp/comprobar/* $ruta_ejecucion
+        echo -e "${amarillo} Existe una actualizacion del script${borra_colores}"
+        read -p " Quieres actualizar ? (S/n): " sino
+        if [[ $sino == [sS] ]]; then
+            actualizar_script
+        else
+            actualizado="NO"
+        fi
         chmod -R +w /tmp/comprobar
         rm -R /tmp/comprobar
-        echo ""
-        echo -e "${verde} El script se ha actualizado.${amarillo} Es necesario cargarlo de nuevo.${borra_colores}"
-        echo ""
-        sleep 2
-        exit
     fi
 }
 
+#funcion para actualizar el script
+actualizar_script(){
+    git clone $DireccionGithub /tmp/comprobar >/dev/null 2>&1
 
+    cp -r /tmp/comprobar/* $ruta_ejecucion
+    chmod -R +w /tmp/comprobar
+    rm -R /tmp/comprobar
+    echo ""
+    echo -e "${amarillo} Sera necesario ejecutarlo de nuevo.${borra_colores}"
+
+    printf " Actualizando... "
+    for i in {1..20}; do
+        printf "#"
+        sleep 0.1
+    done
+    printf " [ \e[32mOK\e[0m ]\n"
+
+    echo ""
+    sleep 1
+    exit
+}
+
+#funcion para comprobar el software necesario
 software_necesario(){
 #funcion software necesario
 #para que funcione necesita:
@@ -129,8 +142,6 @@ paqueteria
 echo ""
 echo -e "${azul} Comprobando el software necesario.${borra_colores}"
 echo ""
-#which git diff ping figlet xdotool wmctrl nano fzf
-#########software="which git diff ping figlet nano gdebi curl konsole" #ponemos el foftware a instalar separado por espacion dentro de las comillas ( soft1 soft2 soft3 etc )
 for comando in "${!requeridos[@]}"; do
         command -v $comando &>/dev/null
         sino=$?
@@ -167,27 +178,6 @@ for comando in "${!requeridos[@]}"; do
     echo ""
     echo -e "${azul} Todo el software ${verde}OK${borra_colores}"
     software="SI"
-    sleep 2
-}
-
-
-conexion(){
-#funcion de comprobar conexion a internet
-#para que funciones necesita:
-#   conexion ainternet
-#   la paleta de colores
-#   software: ping
-
-if ping -c1 google.com &>/dev/null
-then
-    conexion="SI"
-    echo ""
-    echo -e " Conexion a internet = ${verde}SI${borra_colores}"
-else
-    conexion="NO"
-    echo ""
-    echo -e " Conexion a internet = ${rojo}NO${borra_colores}"
-fi
 }
 
 # Función que comprueba si se ejecuta como root
@@ -225,6 +215,7 @@ check_root() {
 
 #funcion de detectar sistema de paquetado para instalar
 paqueteria(){
+echo ""
 echo -e "${azul} Detectando sistema de paquetería...${borra_colores}"
 echo ""
 
@@ -267,7 +258,7 @@ else
     echo -e "${amarillo} No se pudo detectar un sistema de paquetería conocido.${borra_colores}"
     paqueteria="${rojo}Desconocido${borra_colores}"
 fi
-sleep 2
+#sleep 2
 }
 
 
@@ -287,6 +278,68 @@ terminal_bash() {
         exit 1
     fi
 }
+
+conexion(){
+#funcion de comprobar conexion a internet
+#para que funciones necesita:
+#   conexion ainternet
+#   la paleta de colores
+#   software: ping
+
+if ping -c1 -W1 8.8.8.8 &>/dev/null
+then
+    conexion="SI"
+    echo ""
+    echo -e " Conexion a internet = ${verde}SI${borra_colores}"
+else
+    conexion="NO"
+    echo ""
+    echo -e " Conexion a internet = ${rojo}NO${borra_colores}"
+fi
+}
+
+#logica de inicio
+clear
+menu_info
+conexion
+if [ $conexion = "SI" ]; then
+    comprobar_actualizaciones
+    if [ $actualizado = "SI" ]; then
+        terminal_bash
+        software_necesario
+        if [ "$software" = "SI" ]; then
+            export software="SI"
+            export conexion="SI"
+            export actualizado="SI"
+            #bash $ruta_ejecucion/ #PON LA RUTA
+        else
+            echo ""
+        fi
+    else
+        terminal_bash
+        software_necesario
+        if [ $software = "SI" ]; then
+            export software="SI"
+            export conexion="SI"
+            export actualizado="NOOOOO"
+            #bash $ruta_ejecucion/ #PON LA RUTA
+        else
+            echo ""
+        fi
+    fi
+else
+    software_necesario
+    if [ $software = "SI" ]; then
+        export software="SI"
+        export conexion="NO"
+        export actualizado="No se ha podido comprobar la actualizacion del script"
+        #bash $ruta_ejecucion/ #PON LA RUTA
+    else
+        echo ""
+    fi
+fi
+
+##########################EMPIEZA LO GORDO
 
 #comprobar si ya esta instalado.
 comprobar_instalado(){
@@ -565,67 +618,6 @@ else
     esac
 fi
 }
-
-
-
-#logica de arranque
-#variables de resultado $conexion $software $actualizado
-#funciones actualizar_script, conexion, software_necesario
-
-#logica para ejecutar o no ejecutar
-#comprobado conexcion
-#    si=actualizar_script
-#        si=software_necesario
-#            si=ejecuta, poner variables a sii todo
-#            no=Ya sale el solo desde la funcion
-#        no=software_necesario
-#            si=ejecuta, variables software="SI", conexion="SI", actualizado="No se ha podiso comprobar actualizacion de script"
-#            no=Ya sale solo desde la funcion
-#
-#    no=software_necesario
-#        si=ejecuta, variables software="SI", conexion="NO", actualizado="No se ha podiso comprobar actualizacion de script"
-#        no=Ya sale solo desde la funcion
-
-
-clear
-menu_info
-conexion
-if [ $conexion = "SI" ]; then
-    actualizar_script
-    if [ $actualizado = "SI" ]; then
-        terminal_bash
-        software_necesario
-        if [ "$software" = "SI" ]; then
-            export software="SI"
-            export conexion="SI"
-            export actualizado="SI"
-            #bash $ruta_ejecucion/ #PON LA RUTA
-        else
-            echo ""
-        fi
-    else
-        terminal_bash
-        software_necesario
-        if [ $software = "SI" ]; then
-            export software="SI"
-            export conexion="NO"
-            export actualizado="No se ha podido comprobar la actualizacion del script"
-            #bash $ruta_ejecucion/ #PON LA RUTA
-        else
-            echo ""
-        fi
-    fi
-else
-    software_necesario
-    if [ $software = "SI" ]; then
-        export software="SI"
-        export conexion="NO"
-        export actualizado="No se ha podido comprobar la actualizacion del script"
-        #bash $ruta_ejecucion/ #PON LA RUTA
-    else
-        echo ""
-    fi
-fi
 
 clear
 menu_info
