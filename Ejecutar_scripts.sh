@@ -42,7 +42,6 @@ nombre_carpeta_repositorio="ejecutar_scripts" #poner el nombre de la carpeta cua
         [jq]="jq"
         [sed]="sed"
         [wget]="wget"
-        [wgett]="wgett"
     )
 ###########################
 ## FUNCIONES PRINCIPALES ##
