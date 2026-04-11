@@ -429,7 +429,7 @@ if [ -f "$FILE_CHECK" ] && grep -q "^source /home/$(whoami)/.Ejecutar_scripts.co
             for borrar in $selected_dirs; do
                 sudo rm -r $borrar
                 echo ""
-                echo -e "${verde}Carpeta/Fichero ${borra_colores}$borrar${verde} borrado exitosamente de /home/$(whoami)/scripts/${borra_colores}"; sleep 2
+                echo -e "${verde}Carpeta/Fichero ${borra_colores}$borrar${verde} borrado exitosamente de /home/$(whoami)/scripts/${borra_colores}"; sleep 0.3
             done
             ;;
 
