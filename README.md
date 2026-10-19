@@ -70,7 +70,7 @@ Recuerda que este script es interactivo y te proporciona una forma conveniente d
 # Instalacion
 clonar el repositorio
 ```
-    git clone https://github.com/sukigsx/ejecutar_scripts.git
+git clone https://github.com/sukigsx/ejecutar_scripts.git
 ```
 
 ```
