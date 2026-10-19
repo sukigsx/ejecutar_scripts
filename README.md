@@ -68,15 +68,15 @@ Recuerda que este script es interactivo y te proporciona una forma conveniente d
 ¡Disfruta automatizando tus tareas con este menú interactivo!
 
 # Instalacion
-Simplemente debes clonar el repositorio con la orden:
-
+clonar el repositorio
+```
     git clone https://github.com/sukigsx/ejecutar_scripts.git
+```
 
-Entras en la carpeta y ejecutas instalar.sh con la orden:
-    
-    ./Ejecutar_scripts.sh
-o bien:
+```
+cd Ejecutar_scripts.sh
+```
 
-    bash Ejecutar_scripts.sh
-
-# Espero os guste !!!!!!!!!!
+```
+bash Ejecutar_scripts.sh
+```
