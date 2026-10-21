@@ -4,7 +4,7 @@
 # con export son las variables necesarias para exportar al los siguientes script
 #variables para el menu_info
 
-export NombreScript="Ehecutar scripts"
+export NombreScript="Ejecutar scripts"
 export DescripcionDelScript="Control interactivo de tus scripts"
 export Correo="scripts@mbbsistemas.es"
 export Web="https://repositorio.mbbsistemas.es"
