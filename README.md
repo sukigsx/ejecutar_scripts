@@ -74,7 +74,7 @@ git clone https://github.com/sukigsx/ejecutar_scripts.git
 ```
 
 ```
-cd Ejecutar_scripts.sh
+cd ejecutar_scripts
 ```
 
 ```
